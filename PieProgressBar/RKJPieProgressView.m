@@ -70,7 +70,7 @@ typedef NS_OPTIONS(NSUInteger, RKJAnimationDirection) {
 
 - (void) animateInDirection:(CGFloat)duration
                timeInterval:(NSTimeInterval)timeInterval {
-    self.animationTimer = [NSTimer timerWithTimeInterval:timeInterval
+    self.animationTimer = [NSTimer timerWithTimeInterval:timeInterval/10000
                                                   target:self
                                                 selector:@selector(handleTimer:)
                                                 userInfo:nil
@@ -80,11 +80,10 @@ typedef NS_OPTIONS(NSUInteger, RKJAnimationDirection) {
 }
 
 - (void)handleTimer:(NSTimer*)timer {
-    NSLog(@"Tick");
     if (self.strokeCircle.strokeEnd > 1) {
         [self stopAnimation];
     }
-    self.strokeCircle.strokeEnd = self.strokeCircle.strokeEnd + 0.05;
+    self.strokeCircle.strokeEnd = self.strokeCircle.strokeEnd + 0.0005;
 }
 
 - (float)validValueFromValue:(float)value {
@@ -98,9 +97,11 @@ typedef NS_OPTIONS(NSUInteger, RKJAnimationDirection) {
 }
 
 - (void)stopAnimation {
-    self.strokeCircle.strokeEnd = 0.0;
-//    [self.animationTimer invalidate];
-//    self.animationTimer = nil;
+    [self.animationTimer invalidate];
+    self.animationTimer = nil;
+    if ([self.delegate respondsToSelector: @selector(didFinishAnimation:)]) {
+        [self.delegate didFinishAnimation:self];
+    }
 }
 
 

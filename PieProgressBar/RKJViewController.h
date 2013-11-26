@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RKJPieProgressView.h"
 
-@interface RKJViewController : UIViewController {
+@interface RKJViewController : UIViewController <RKJPieProgressViewDelegate> {
     RKJPieProgressView *progressView;
 }
 

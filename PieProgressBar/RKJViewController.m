@@ -14,19 +14,20 @@
 
 @implementation RKJViewController
 
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     progressView = [[RKJPieProgressView alloc] initWithFrame:CGRectMake(20, 20, 200, 200)];
     [self.view addSubview:progressView];
-    [progressView progressToValue:.7 duration:1];
+    progressView.delegate = self;
+    [progressView progressToValue:.7 duration:20];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) didFinishAnimation:(RKJPieProgressView *)progressView {
 }
 
 @end
